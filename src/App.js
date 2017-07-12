@@ -18,7 +18,7 @@ class App extends Component {
         const books = await BooksAPI.getAll()
         this.setState({books})
       } catch (error) {
-        alert(error)
+        console.warn(error)
       }
     }
     return getAllAsync.bind(this)()
