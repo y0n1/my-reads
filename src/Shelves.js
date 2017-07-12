@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import './Shelves.css'
+import Shelf from './Shelf'
 
 class Shelves extends Component {
   state = {
@@ -15,43 +17,11 @@ class Shelves extends Component {
 
   render() {
     return (
-      <div className="Shelves">
-        <ul>
-          <li>Currently Reading<hr />
-            {this.state.currentlyReading.map(book => (
-              <figure key={book.id}>
-                <img src={book.imageLinks.thumbnail} alt="" />
-                <figcaption>
-                  <h5>{book.title}</h5>
-                  <h6>{book.authors.join(', ')}</h6>
-                </figcaption>
-              </figure>
-            ))}
-          </li>
-          <li>Want to Read<hr />
-            {this.state.wantToRead.map(book => (
-              <figure key={book.id}>
-                <img src={book.imageLinks.thumbnail} alt="" />
-                <figcaption>
-                  <h5>{book.title}</h5>
-                  <h6>{book.authors.join(', ')}</h6>
-                </figcaption>
-              </figure>
-            ))}
-          </li>
-          <li>Read<hr />
-            {this.state.read.map(book => (
-              <figure key={book.id}>
-                <img src={book.imageLinks.thumbnail} alt="" />
-                <figcaption>
-                  <h5>{book.title}</h5>
-                  <h6>{book.authors.join(', ')}</h6>
-                </figcaption>
-              </figure>
-            ))}
-          </li>
-        </ul>
-      </div>
+      <ul className="Shelves">
+        <Shelf name="Currently Reading" books={this.state.currentlyReading}/>
+        <Shelf name="Want to Read" books={this.state.wantToRead} />
+        <Shelf name="Read" books={this.state.read} />
+      </ul>
     )
   }
 }

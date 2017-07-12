@@ -1,0 +1,21 @@
+.Shelf {
+  list-style-type: none;
+}
+
+.Shelf-flex-container {
+  display: flex;
+  align-items: baseline;
+}
+
+.Shelf-name {
+  text-align: left;
+}
+
+.Shelf-figure {
+  display: inline-block;
+  width: 300px;
+}
+
+.Shelf-thumbnail {
+  box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.75);
+}

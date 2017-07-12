@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import './App.css'
 import {
   Switch,
   Route
@@ -27,7 +28,7 @@ class App extends Component {
     const _Shelves_ = () => (<Shelves books={this.state.books}/>)
     return (
       <div className="App">
-        <h1>MyReads</h1>
+        <h1 className="App-header">MyReads</h1>
         <Switch>
           <Route path="/" exact render={_Shelves_}></Route>
         </Switch>
