@@ -21,6 +21,7 @@ class App extends Component {
         console.warn(error)
       }
     }
+    
     return getAllAsync.bind(this)()
   }
 

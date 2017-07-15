@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import './Shelves.css'
 import Shelf from './Shelf'
+import * as BooksAPI from './utils/BooksAPI'
 
 class Shelves extends Component {
   state = {
@@ -9,18 +10,34 @@ class Shelves extends Component {
     read: []
   }
 
+  handleChangeShelf = (bookID, currentShelf, newShelf) => {
+    console.log(`current: ${currentShelf}\nnew: ${newShelf}`)
+    const byID = book => book.id === bookID
+    const notByID = book => book.id !== bookID
+    let book = this.state[currentShelf].find(byID)
+    this.setState({[currentShelf]: this.state[currentShelf].filter(notByID)})
+    if (newShelf !== 'Remove') {
+      this.setState({[newShelf]: this.state[newShelf].concat(book)})
+      book.shelf = newShelf
+    }
+    (async function() {
+      const response = await BooksAPI.update(book, newShelf)
+      console.log(`Response: ${JSON.stringify(response, null, 2)}`)
+    })()
+  }
+
   componentWillReceiveProps(receivedProps) {
-    const onShelf = (shelfName) => (book) => book.shelf === shelfName;
+    const byShelf = (shelfName) => (book) => book.shelf === shelfName;
     const { books } = receivedProps
-    Object.keys(this.state).forEach((shelfName) => this.setState({ [shelfName]: books.filter(onShelf(shelfName)) }))
+    Object.keys(this.state).forEach((shelfName) => this.setState({ [shelfName]: books.filter(byShelf(shelfName)) }))
   }
 
   render() {
     return (
       <ul className="Shelves">
-        <Shelf name="Currently Reading" books={this.state.currentlyReading}/>
-        <Shelf name="Want to Read" books={this.state.wantToRead} />
-        <Shelf name="Read" books={this.state.read} />
+        <Shelf name="Currently Reading" books={this.state.currentlyReading} onChangeShelf={this.handleChangeShelf} />
+        <Shelf name="Want to Read" books={this.state.wantToRead} onChangeShelf={this.handleChangeShelf} />
+        <Shelf name="Read" books={this.state.read} onChangeShelf={this.handleChangeShelf} />
       </ul>
     )
   }

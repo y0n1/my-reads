@@ -3,14 +3,27 @@ import './ShelfSelector.css'
 
 class ShelfSelector extends Component {
 
+  state = {
+    selectedShelf: this.props.selectedShelf
+  }
+
+  handleChange = (event) => {
+    const newShelf = event.target.value
+    const {selectedShelf} = this.props
+    this.setState({selectedShelf: newShelf})
+    this.props.onChangeShelf(this.props.bookID, selectedShelf, newShelf)
+  }
+
   render() {
     return (
-      <select className="ShelfSelector">
+      <select className="ShelfSelector" value={this.state.selectedShelf} onChange={this.handleChange}>
         <option value="currentlyReading">Currently Reading</option>
-        <option value="wantToRead" selected>Want to Read</option>
+        <option value="wantToRead">Want to Read</option>
         <option value="read">Read</option>
-        <option value="none">none</option>
+        <option value="none">Remove</option>
       </select>
     )
   }
 }
+
+export default ShelfSelector
