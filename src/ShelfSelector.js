@@ -17,10 +17,12 @@ class ShelfSelector extends Component {
   render() {
     return (
       <select className="ShelfSelector" value={this.state.selectedShelf} onChange={this.handleChange}>
-        <option value="currentlyReading">Currently Reading</option>
-        <option value="wantToRead">Want to Read</option>
-        <option value="read">Read</option>
-        <option value="none">Remove</option>
+        <optgroup label="Move to:">
+          <option value="currentlyReading">Currently Reading</option>
+          <option value="wantToRead">Want to Read</option>
+          <option value="read">Read</option>
+          <option value="none">Remove</option>
+        </optgroup>
       </select>
     )
   }

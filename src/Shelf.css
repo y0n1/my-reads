@@ -5,6 +5,7 @@
 .Shelf-flex-container {
   display: flex;
   align-items: baseline;
+  justify-content: center;
 }
 
 .Shelf-name {
@@ -13,9 +14,15 @@
 
 .Shelf-figure {
   display: inline-block;
-  width: 300px;
+  width: 256px;
 }
 
 .Shelf-thumbnail {
   box-shadow: 0px 5px 5px 0px rgba(0,0,0,0.75);
+}
+
+.Shelf-container-thumbnail-and-selector {
+  width: 128px;
+  margin-left: auto;
+  margin-right: auto;
 }

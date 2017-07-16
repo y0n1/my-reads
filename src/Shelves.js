@@ -11,12 +11,11 @@ class Shelves extends Component {
   }
 
   handleChangeShelf = (bookID, currentShelf, newShelf) => {
-    console.log(`current: ${currentShelf}\nnew: ${newShelf}`)
-    const byID = book => book.id === bookID
-    const notByID = book => book.id !== bookID
-    let book = this.state[currentShelf].find(byID)
-    this.setState({[currentShelf]: this.state[currentShelf].filter(notByID)})
-    if (newShelf !== 'Remove') {
+    const booksWithSameIDs = book => book.id === bookID
+    const booksWithDifferentIDs = book => book.id !== bookID
+    let book = this.state[currentShelf].find(booksWithSameIDs)
+    this.setState({[currentShelf]: this.state[currentShelf].filter(booksWithDifferentIDs)})
+    if (newShelf !== 'none') {
       this.setState({[newShelf]: this.state[newShelf].concat(book)})
       book.shelf = newShelf
     }
