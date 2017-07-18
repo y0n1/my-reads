@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom'
 import Shelves from './Shelves'
 import * as BooksAPI from './utils/BooksAPI'
+import SearchScreen from './SearchScreen'
 
 class App extends Component {
   state = {
@@ -27,11 +28,13 @@ class App extends Component {
 
   render() {
     const _Shelves_ = () => (<Shelves books={this.state.books}/>)
+    const _SearchScreen_ = () => (<SearchScreen />)
     return (
       <div className="App">
-        <h1 className="App-header">MyReads</h1>
+        <h1 className="App-header">My Reads</h1>
         <Switch>
-          <Route path="/" exact render={_Shelves_}></Route>
+          <Route path="/" exact render={_Shelves_} />
+          <Route path="/search" render={_SearchScreen_} />
         </Switch>
       </div>
     )
