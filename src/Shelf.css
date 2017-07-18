@@ -22,6 +22,7 @@
 }
 
 .Shelf-container-thumbnail-and-selector {
+  position: relative;
   width: 128px;
   margin-left: auto;
   margin-right: auto;

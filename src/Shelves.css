@@ -1,3 +1,30 @@
 .Shelves {
   padding: 0 25px;
 }
+
+.Shelves-list {
+  padding-left: 0;
+}
+
+ .Shelves-add-book {
+  display: block;
+  position: fixed;
+  z-index: 20;
+  bottom: 35px;
+  right: 75px;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background-color: green; 
+  background-image: url('./icons/add.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 28px;
+  box-shadow: 5px 5px 5px 1px rgba(0,0,0,0.25);
+  font-size: 0;
+}
+
+.Shelves-add-book:focus {
+   outline-width: 0; 
+   border: 1px solid rgb(50, 153, 252);
+}
