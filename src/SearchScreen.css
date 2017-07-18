@@ -1,6 +1,7 @@
 .SearchScreen-search-bar {
   display: flex; 
   position: fixed;
+  z-index: 20;
   width: 100%;
   height: 90px;
   top: 0;
@@ -27,9 +28,4 @@
   font-size: 1.2em;
   border: 0;
   outline: none;
-}
-
-.SearchScreen-results {
-  color: red;
-  font-size: 28pt;
 }

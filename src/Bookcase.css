@@ -1,12 +1,12 @@
-.Shelves {
+.Bookcase {
   padding: 0 25px;
 }
 
-.Shelves-list {
+.Bookcase-list {
   padding-left: 0;
 }
 
- .Shelves-add-book {
+ .Bookcase-add-book {
   display: block;
   position: fixed;
   z-index: 20;
@@ -24,7 +24,7 @@
   font-size: 0;
 }
 
-.Shelves-add-book:focus {
+.Bookcase-add-book:focus {
    outline-width: 0; 
    border: 1px solid rgb(50, 153, 252);
 }

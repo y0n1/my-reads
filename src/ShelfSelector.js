@@ -9,9 +9,9 @@ class ShelfSelector extends Component {
 
   handleChange = (event) => {
     const newShelf = event.target.value
-    const {selectedShelf} = this.props
-    this.setState({selectedShelf: newShelf})
-    this.props.onChangeShelf(this.props.bookID, selectedShelf, newShelf)
+    const { selectedShelf, onChangeShelf } = this.props
+    this.setState({ selectedShelf: newShelf })
+    onChangeShelf(this.props.bookID, selectedShelf, newShelf)
   }
 
   render() {
