@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './Shelves.css'
 import Shelf from './Shelf'
 import * as BooksAPI from './utils/BooksAPI'
+import {Link} from 'react-router-dom'
 
 class Shelves extends Component {
   state = {
@@ -33,11 +34,14 @@ class Shelves extends Component {
 
   render() {
     return (
-      <ul className="Shelves">
-        <Shelf name="Currently Reading" books={this.state.currentlyReading} onChangeShelf={this.handleChangeShelf} />
-        <Shelf name="Want to Read" books={this.state.wantToRead} onChangeShelf={this.handleChangeShelf} />
-        <Shelf name="Read" books={this.state.read} onChangeShelf={this.handleChangeShelf} />
-      </ul>
+      <div className="Shelves">
+        <ul className="Shelves-list">
+          <Shelf name="Currently Reading" books={this.state.currentlyReading} onChangeShelf={this.handleChangeShelf} />
+          <Shelf name="Want to Read" books={this.state.wantToRead} onChangeShelf={this.handleChangeShelf} />
+          <Shelf name="Read" books={this.state.read} onChangeShelf={this.handleChangeShelf} />
+        </ul>
+        <Link to="/search" className="Shelves-add-book">Add Book</Link>
+      </div>
     )
   }
 }
