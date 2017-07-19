@@ -4,25 +4,37 @@ import { Link } from 'react-router-dom'
 import * as BooksAPI from './utils/BooksAPI'
 import sortBy from 'sort-by'
 import Book from './Book'
+import { debounce } from 'lodash'
+
+const DEBOUNCE_DELAY = 1000
+const MAX_RESULTS = 10
 
 class SearchScreen extends Component {
   state = {
-    query: '',
-    searchResults: []
+    results: []
   }
 
-  handleUpdateQuery = (event) => {
-    const query = event.target.value.trim()
-    async function sendQuery() {
-      try {
-        const resultsFromServer = await BooksAPI.search(query, 20)
-        this.setState({ query, searchResults: resultsFromServer.sort(sortBy('title')) })
-      } catch (error) {
-        alert(error.message)
-      }
+  searchAsync = async (query) => {
+    console.log(query)
+    try {
+      const results = await BooksAPI.search(query, MAX_RESULTS)
+      console.log(results)
+      this.setState({ results: results.sort(sortBy('title')) })
+    } catch (error) {
+      console.warn(error.message)
     }
+  }
 
-    sendQuery.bind(this)()
+  componentDidMount() {
+    this.delayedChange = debounce((event) => {
+      const query = event.target.value.trim()
+      this.searchAsync(query)
+    }, DEBOUNCE_DELAY)
+  }
+
+  handleChange = (event) => {
+    event.persist()
+    this.delayedChange(event)
   }
 
   render() {
@@ -30,9 +42,14 @@ class SearchScreen extends Component {
       <div className="SearchScreen">
         <div className="SearchScreen-search-bar">
           <Link to="/" className="SearchScreen-back-button">Go Back</Link>
-          <input className="SearchScreen-query-input" type="text" value={this.state.query} placeholder="Search by title or author..." onChange={this.handleUpdateQuery} />
+          <input className="SearchScreen-query-input"
+            placeholder="Search by title or author..."
+            onChange={this.handleChange}
+            type="search" />
         </div>
-        <div className="SearchScreen-results">{this.state.searchResults.map(book => (<Book key={book.id} data={book} />))}</div>
+        <div className="SearchScreen-results">{
+          this.state.results.map(book => (<Book key={book.id} data={book} />))
+        }</div>
       </div>
     )
   }
