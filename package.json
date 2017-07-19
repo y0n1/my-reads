@@ -6,6 +6,7 @@
     "git": "git@github.com:y0n1/my-reads.git"
   },
   "dependencies": {
+    "lodash.debounce": "^4.0.8",
     "prop-types": "^15.5.10",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
