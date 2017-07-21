@@ -26,14 +26,6 @@ class App extends Component {
     }
   }
 
-  /**
-   * if book exists on currentShelfName
-   *   remove book from currentShelfName
-   *   add book to newShelf
-   * else (we need to add a new book to some shelf),
-   *   request the book details from the server, let newBook be the reference to the returned data
-   *   add newBook to newShelf
-   */
   handleChangeShelfAsync = async (bookId, currentShelfName, newShelfName) => {
     let book
     let currentShelf = this.state[currentShelfName]
