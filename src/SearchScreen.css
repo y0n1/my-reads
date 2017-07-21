@@ -30,3 +30,9 @@
   border: 0;
   outline: none;
 }
+
+.SearchScreen-no-results {
+  margin-top: 20%;
+  font-size: 28pt;
+  color: darkslategray;
+}

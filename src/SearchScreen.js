@@ -11,25 +11,27 @@ const MAX_RESULTS = 10
 
 class SearchScreen extends Component {
   state = {
-    results: []
+    results: [],
+    shelves: {}
   }
 
   searchAsync = async (query) => {
-    console.log(query)
     try {
       const results = await BooksAPI.search(query, MAX_RESULTS)
-      console.log(results)
-      this.setState({ results: results.sort(sortBy('title')) })
+      this.setState({ results: (results.sort && results.sort(sortBy('title'))) || results })
     } catch (error) {
-      console.warn(error.message)
+      alert(error.message)
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.delayedChange = debounce((event) => {
       const query = event.target.value.trim()
-      this.searchAsync(query)
+      if (query.length > 0) {
+        this.searchAsync(query)
+      }
     }, DEBOUNCE_DELAY)
+    this.setState({shelves: this.props.shelves})
   }
 
   handleChange = (event) => {
@@ -38,6 +40,28 @@ class SearchScreen extends Component {
   }
 
   render() {
+    const {results} = this.state
+    const {onChangeShelf} = this.props
+    let searchResult
+
+    if (results.error) {
+      searchResult = <div className="SearchScreen-no-results">{`Server says: "${results.error}"`}</div>
+    } else {
+      for (const book of this.state.results) {
+        const bookId = book.id
+        for (const currentShelfName of Object.keys(this.state.shelves)) {
+          const currentShelf = this.state.shelves[currentShelfName]
+          const bookById = book => book.id === bookId
+          const isBookInShelf = currentShelf.find(bookById)
+          if (isBookInShelf) {
+            book.shelf = currentShelfName
+          }
+        }
+      }
+
+      searchResult = this.state.results.map(book => (<Book key={book.id} data={book} onChangeShelf={onChangeShelf}/>))
+    }
+
     return (
       <div className="SearchScreen">
         <div className="SearchScreen-search-bar">
@@ -47,9 +71,7 @@ class SearchScreen extends Component {
             onChange={this.handleChange}
             type="search" />
         </div>
-        <div className="SearchScreen-results">{
-          this.state.results.map(book => (<Book key={book.id} data={book} />))
-        }</div>
+        <div className="SearchScreen-results">{searchResult}</div>
       </div>
     )
   }

@@ -10,8 +10,8 @@
   display: block;
   position: fixed;
   z-index: 20;
-  bottom: 35px;
-  right: 75px;
+  bottom: 1%;
+  right: 1%;
   width: 70px;
   height: 70px;
   border-radius: 50%;
